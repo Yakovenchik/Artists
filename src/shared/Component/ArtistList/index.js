@@ -50,6 +50,7 @@ export default class ArtistList extends Component{
                                     <div>
                                         <p>id:{i}</p>
                                         <p>Artist:{item.name}</p>
+                                        <img src = {item.image_url} alt={item.name} />
                                     </div>
                                     <div id={i} className='full_Artist' style={{display: 'none'}}>
                                         <div>
