@@ -63,7 +63,7 @@ export default class ArtistList extends Component{
                                             <a href={item.url} target = "_blank">If you want to see additional information about events link it</a>
                                             <br/>
                                             <button onClick={()=>this.openDIV(i)}>Close Full Artist's information</button>
-                                            <button onClick={()=>artistStore.removeArtist(i)}>Remove Artist</button>
+                                            <button onClick={()=>{artistStore.removeArtist(i);this.openDIV(i)}}>Remove Artist</button>
                                         </div>
                                     </div>
                                     <button onClick={()=>artistStore.removeArtist(i)}>Remove Artist</button>
