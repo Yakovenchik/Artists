@@ -1,72 +1,71 @@
 import React, {Component} from 'react';
-import {observer} from 'mobx-react';
-import {artistStore} from '../../Store/index';
+import {observer, inject} from 'mobx-react';
 import './index.css'
+import {Button, Image } from 'react-bootstrap';
 
 
-@observer
-export default class ArtistList extends Component{
-    sendArtist(newArtist){
-        if ((newArtist.name === undefined)||(newArtist.name === '')||(newArtist.name === null)) {
-                alert('Input name');
-                return
+@inject('artistStore') @observer export default class ArtistList extends Component{
+    sendArtist(name){
+        const artistStore = this.props.artistStore;
+        if ((name === undefined)||(name === '')||(name === null)) {
+            alert('Input name')
+            }else {
+               artistStore.addArtist(name);
             }
-        artistStore.addArtist(newArtist);
     }
 
     openDIV(id) {
         if (document.getElementById(id).style.display === 'none') {
-            document.getElementById(id).style.display = 'block';
-            document.body.style.overflow = 'none';
+            document.getElementById(id).style.display = 'flex';
         } else {
             document.getElementById(id).style.display = 'none';
         }
     }
     render(){
-        let newArtist={};
+        const artistStore = this.props.artistStore;
+        let name='';
         return(
             <div>
-                <div className={'headerArtist'}>
+                <div className='headerArtist'>
                     <h1>Artists</h1>
-                    <div className={'add_Artist'}>
-                        <div className={'input_area'}>
+                    <div className='add_Artist'>
+                        <div className='input_area'>
                             Input Artist's name:
-                            <input type="text" id = 'inputArtistName'/>
+                            <input type="text"  placeholder='Name' onChange={(item)=>name=item.target.value} id = 'inputArtistName'/>
                         </div>
-                        <button onClick={()=>{
-                            newArtist.name=document.getElementById('inputArtistName').value;
-                            this.sendArtist(newArtist);
+                        <Button bsStyle="success" onClick={()=>{
+                            document.getElementById('inputArtistName').value = '';
+                            this.sendArtist(name);
+                            name = '';
                         }}>
                             New Artist
-                        </button>
+                        </Button>
                     </div>
                 </div>
                 <div>
-                    {artistStore.artistList.map((item,i)=>{
+                    {artistStore.artistList.map((item)=>{
                         return(
-                            <div key={i}>
-                                <div className={'Artist'}>
-                                    <button onClick={()=>this.openDIV(i)}>Show Full Artist Information</button>
+                            <div key={item.id}>
+                                <div className='Artist'>
+                                    <Button bsStyle="success" onClick={()=>this.openDIV(item.id)}>Show Full Artist Information</Button>
                                     <div>
-                                        <p>id:{i}</p>
-                                        <p>Artist:{item.name}</p>
-                                        <img src = {item.image_url} alt={item.name} />
+                                        <p>id:{item.id}</p>
+                                        <h2>Artist:{item.name}</h2>
                                     </div>
-                                    <div id={i} className='full_Artist' style={{display: 'none'}}>
-                                        <div>
+                                    <Image bsStyle="success" src = {item.image_url} alt={item.name} />
+                                    <div id={item.id} className='full_Artist' style={{display: 'none'}}>
                                             <div className='input_area'>
                                                 <p>id: {item.id}<br/>Artist: {item.name}</p>
-                                                <img src = {item.image_url} alt={item.name} />
+                                                <Image bsStyle="success" src = {item.image_url} alt={item.name} />
                                             </div>
                                             <p>Facebook Page: <a href = {item.facebook_page_url}>{item.facebook_page_url}</a></p>
                                             <p>Number of Upcoming Events: {item.upcoming_event_count}</p>
                                             <a href={item.url} target = "_blank">If you want to see additional information about events link it</a>
                                             <br/>
-                                            <button onClick={()=>this.openDIV(i)}>Close Full Artist's information</button>
-                                            <button onClick={()=>{artistStore.removeArtist(i);this.openDIV(i)}}>Remove Artist</button>
-                                        </div>
+                                            <Button bsStyle="success" onClick={()=>this.openDIV(item.id)}>Close Full Artist's information</Button>
+                                            <Button bsStyle="success" onClick={()=>{artistStore.removeArtist(item.id);this.openDIV(item.id)}}>Remove Artist</Button>
                                     </div>
-                                    <button onClick={()=>artistStore.removeArtist(i)}>Remove Artist</button>
+                                    <Button bsStyle="success" onClick={()=>artistStore.removeArtist(item.id)}>Remove Artist</Button>
                                 </div>
                             </div>
                         )

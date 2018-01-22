@@ -1,4 +1,7 @@
-import ArtistStore from "./NewArtist";
+import ArtistStore from "./NewArtist/index";
 
-
-export const artistStore = new ArtistStore();
+const artistStore = new ArtistStore();
+const stores = {
+    artistStore
+};
+export default stores;
