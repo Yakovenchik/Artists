@@ -52,11 +52,11 @@ import {Button, Image } from 'react-bootstrap';
                                         <p>id:{item.id}</p>
                                         <h2>Artist:{item.name}</h2>
                                     </div>
-                                    <Image bsStyle="success" src = {item.image_url} alt={item.name} />
+                                    <Image bsStyle="success" rounded src = {item.image_url} alt={item.name} />
                                     <div id={item.id} className='full_Artist' style={{display: 'none'}}>
                                             <div className='input_area'>
                                                 <p>id: {item.id}<br/>Artist: {item.name}</p>
-                                                <Image bsStyle="success" src = {item.image_url} alt={item.name} />
+                                                <Image bsStyle="success" rounded src = {item.image_url} alt={item.name} />
                                             </div>
                                             <p>Facebook Page: <a href = {item.facebook_page_url}>{item.facebook_page_url}</a></p>
                                             <p>Number of Upcoming Events: {item.upcoming_event_count}</p>
