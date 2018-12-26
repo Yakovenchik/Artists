@@ -69,7 +69,7 @@ import {Button, Image } from 'react-bootstrap';
                                 </div>
                             </div>
                         )
-                        })}
+                        }).reverse()}
                 </div>
             </div>
         )

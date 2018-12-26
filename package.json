@@ -58,9 +58,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node test --env=jsdom",
-    "eject": "node eject"
+    "build": "node scripts/build.js"
   },
   "description": "",
   "author": "Yakovenko Aleksandr",
